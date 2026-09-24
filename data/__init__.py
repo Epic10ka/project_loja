@@ -48,12 +48,12 @@ def insert(nome, preco):
     conn.close()
 
 
-def select(choose_id = False, id = 0):
+def select(select_id = False, id = 0):
 
     conn = connect()
     cursor = conn.cursor()
 
-    if not choose_id:
+    if not select_id:
         cursor.execute("""
         SELECT * FROM produtos""")
 
@@ -64,7 +64,7 @@ def select(choose_id = False, id = 0):
         cursor.execute("""
             SELECT * FROM produtos WHERE id = ?""", (id,))
 
-        produtos = cursor.fetchall()
+        produtos = cursor.fetchone()
         return produtos
 
 
