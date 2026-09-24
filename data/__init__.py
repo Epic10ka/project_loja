@@ -46,6 +46,7 @@ def insert(nome, preco):
 
     conn.commit()
     conn.close()
+    return cursor.lastrowid
 
 
 def select(select_id = False, id = 0):
@@ -58,6 +59,9 @@ def select(select_id = False, id = 0):
         SELECT * FROM produtos""")
 
         produtos = cursor.fetchall()
+
+        conn.close()
+
         return produtos
 
     else:
@@ -65,7 +69,12 @@ def select(select_id = False, id = 0):
             SELECT * FROM produtos WHERE id = ?""", (id,))
 
         produtos = cursor.fetchone()
+
+        conn.close()
+
         return produtos
+
+
 
 
 def update(nome, preco, id_n):
@@ -79,3 +88,14 @@ def update(nome, preco, id_n):
     conn.commit()
     conn.close()
 
+
+def delete(id):
+
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        DELETE FROM produtos WHERE id = ?""", (id,))
+
+    conn.commit()
+    conn.close()
