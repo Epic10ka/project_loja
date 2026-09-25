@@ -41,6 +41,7 @@ def insert(nome, preco):
     conn = connect()
     cursor = conn.cursor()
 
+
     cursor.execute("""
         INSERT INTO produtos (nome, preco) VALUES (?, ?)""", (nome, preco))
 

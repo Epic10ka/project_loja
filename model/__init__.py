@@ -12,7 +12,7 @@ class Produto:
 
     def __str__(self):
 
-        return f'NOME: {self.nome} | PREÇO: {self.preco}'
+        return f'ID: {self.id} | NOME: {self.nome} | PREÇO: {self.preco}'
 
 
 
@@ -24,35 +24,38 @@ class Produto:
     @preco.setter #importante pra garantir de forma ideal a troca do "_preço"
     def preco(self, valor):
 
+
         try:
             valor = float(valor)
-            self._preco = valor
 
-        except ValueError as e:
+        except ValueError:
             raise ValueError('Preço inválido')
 
+        if valor < 0:
+            raise ValueError('Não é possível enviar preços negativos.')
+
+        self._preco = valor
 
 
-    @property
+
+    @property #@property e id.setter são fundamentais para a criação do atributo "id". Não remover.
     def id(self):
         return self.__id
+
 
     @id.setter
     def id(self, valor):
 
-        if self.__id is None:
+        if self.id is None:
             self.__id = valor
 
         else:
             raise ValueError('ID já atribuído')
 
 
-prod = Produto('arroz', 12.99)
+prod = Produto('Teste de negativo', '-1')
+
+
+
+
 print(prod)
-
-
-
-id_gerado = data.insert(prod.nome, prod.preco)
-prod.id = id_gerado
-
-print(prod.id)
